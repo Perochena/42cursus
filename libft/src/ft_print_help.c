@@ -1,41 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_print_help.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/21 19:31:02 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/10/23 22:56:30 by ramrodri         ###   ########.fr       */
+/*   Created: 2019/10/19 21:25:28 by ramrodri          #+#    #+#             */
+/*   Updated: 2019/10/19 21:44:34 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft.h"
-#include "test.h"
 
-int	main(int argc, char **argv)
+void	ft_print_help(void)
 {
-	int	i;
-
-	if (argc > 1)
-	{
-		i = 1;
-		while (i < argc)
-		{
-
-			if (ft_strcmp(argv[i], "all") == 0)
-			{
-				test_atoi();
-			}
-			else if (ft_strcmp(argv[i], "ft_atoi") == 0)
-				test_atoi();
-			i++;
-		}
-	}
-	else
-	{
-		ft_putstr("Parameter error\n");
-		ft_print_help();
-	}
-	return (0);
+	ft_putstr("ft [all] [<ft_funtion>]\n\n");
+	ft_putstr("all\t Check all ft_functions\n");
+	ft_putstr("<ft_function>\t Check this <ft_function>\n\n");
+	ft_putstr("List ft_functins:\n");
+	ft_putstr("- ft_atoi\n");
 }

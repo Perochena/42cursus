@@ -10,10 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "ft.h"
 
-int		main(void)
+int	main(int argc, char **argv)
 {
+	int i;
+
+	if (argc > 1)
+	{
+		i = 1;
+		while (i < argc)
+		{
+			i++;
+		}
+	}
+	else
+		ft_putstr("Parameter error");
 	return (0);
 }

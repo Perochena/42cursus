@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: inyancat <inyancat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/21 19:31:02 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/10/23 22:56:30 by ramrodri         ###   ########.fr       */
+/*   Created  2016/11/11 16:47:32 by inyancat          #+#    #+#             */
+/*   Updated  2016/11/12 20:21:42 by inyancat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "ft.h"
+#include "utils.h"
+#include <stdarg.h>
+extern int g_log_fd;
 
-int		main(int argc, char **argv)
+void error(int code, int a, const char *pattern, ...)
 {
-	int i;
+	va_list	va;
 
-	if (argc > 1)
-	{
-		i = 1;
-		while (i < argc)
-		{
-			ft_putstr("map error\n");
-			i++;
-		}
-	}
-	return (0);
+	va_start(va, pattern);
+	(void)a;
+	vdprintf(g_log_fd, pattern, va);
+	dprintf(g_log_fd, "\n");
+	va_end(va);
+	exit(code);
 }

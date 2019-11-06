@@ -16,15 +16,17 @@ SRCS_TEST = $(shell find tests -name "*.c")
 OBJS_TEST = $(SRCS_TEST:.c=.o)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-INCFLAGS = -I includes
-LIBFLAGS = -L lib
-AR = ar -rc
+INCFLAGS = -Iincludes
+LIBFLAGS = -Llib
+AR = ar rcs
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(LIBTEST) $(OBJ_MAIN)
+#$(NAME): $(LIBFT) $(LIBTEST) $(OBJ_MAIN)
+$(NAME): $(LIBFT) $(LIBTEST)
 	@echo Compiling Binary File: $@ ...
-	$(CC) $(CFLAGS) $(LIBFLAGS) -l $(NAMELIBFT) -l $(NAMELIBTEST) $(OBJ_MAIN) $(LIBFT) $(LIBTEST) -o $@
+	#$(CC) -static $(CFLAGS) $(INCFLAGS) $(LIBFLAGS) -l $(NAMELIBFT) -l $(NAMELIBTEST) $(OBJ_MAIN) -o $@
+	$(CC) -static $(CFLAGS) $(INCFLAGS) $(SRC_MAIN) $(LIBFT) $(LIBTEST) -o $@
 
 $(LIBFT): $(OBJS_FT) $(INCS_FT)
 	@echo Compiling FT Librery: $@ ...
@@ -43,11 +45,11 @@ $(OBJ_MAIN): $(SRC_MAIN) $(INCS_FT) $(INCS_TEST)
 #%.o: %.c $(INCS_FT) $(INCS_TEST)
 $(OBJS_FT): $(SRCS_FT) $(INCS_FT)
 	@echo Compiling FT Objects Files: $@ ...
-	$(CC) -c $< $(CFLAGS) $(INCFLAGS) -o $@
+	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 $(OBJS_TEST): $(SRCS_TEST) $(INCS_TEST)
 	@echo Compiling Tests Objects Files: $@ ...
-	$(CC) -c $< $(CFLAGS) $(INCFLAGS) -o $@
+	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 clean:
 	@echo Delete Objects Files: $@ ...

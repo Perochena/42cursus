@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 
 #ifndef __FT_H
-# define __FT_H
+#define __FT_H
 
-# include <string.h>
-# include <unistd.h>
-# include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 void		ft_print_help(void);
 void		ft_putchar(char c);
@@ -44,4 +44,5 @@ unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size);
 unsigned int	ft_strlcat(char *dest, char *src, unsigned int size);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
 int		ft_atoi(char *str);
+void		test_atoi(void);
 #endif

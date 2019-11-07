@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_delete_node.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: frrodrig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 19:47:41 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/05 19:47:43 by ramrodri         ###   ########.fr       */
+/*   Created: 2019/10/23 20:16:26 by frrodrig          #+#    #+#             */
+/*   Updated: 2019/10/23 21:12:11 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "ft.h"
 
-void	*ft_memalloc(size_t size)
+t_bsq	*ft_delete_node(t_bsq *root)
 {
-	void	*zone;
+	t_bsq *node_del;
 
-	if (!(zone = malloc(size)))
+	if (root != NULL)
+	{
+		node_del = root;
+		root = root->next;
+		free(node_del);
+		return (root);
+	}
+	else
 		return (NULL);
-	return (ft_memset(zone, 0, size));
 }

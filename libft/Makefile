@@ -19,37 +19,45 @@ CFLAGS = -Wall -Wextra -Werror
 INCFLAGS = -Iincludes
 LIBFLAGS = -Llib
 AR = ar rcs
+#AR = ar -rc
 
 all: $(NAME)
 
-#$(NAME): $(LIBFT) $(LIBTEST) $(OBJ_MAIN)
-$(NAME): $(LIBFT) $(LIBTEST)
+#$(NAME): $(LIBFT) $(LIBTEST)
+#$(NAME): $(LIBFT) $(OBJ_MAIN)
+$(NAME): $(LIBFT) $(LIBTEST) $(OBJ_MAIN)
 	@echo Compiling Binary File: $@ ...
 	#$(CC) -static $(CFLAGS) $(INCFLAGS) $(LIBFLAGS) -l $(NAMELIBFT) -l $(NAMELIBTEST) $(OBJ_MAIN) -o $@
-	$(CC) -static $(CFLAGS) $(INCFLAGS) $(SRC_MAIN) $(LIBFT) $(LIBTEST) -o $@
+	#$(CC) -static $(CFLAGS) $(LIBFLAGS) -l$(NAMELIBFT) -l$(NAMELIBTEST) $(OBJ_MAIN) -o $@
+	#$(CC) -static $(CFLAGS) $(INCFLAGS) $(LIBFLAGS) -l$(NAMELIBFT) $(OBJ_MAIN) $(LIBFT) -o $@
+	$(CC) $(CFLAGS) $(OBJ_MAIN) $(LIBFT) $(LIBTEST) -o $@
 
 $(LIBFT): $(OBJS_FT) $(INCS_FT)
 	@echo Compiling FT Librery: $@ ...
 	mkdir -p lib
 	$(AR) $@ $^
 
-$(LIBTEST): $(OBJS_TEST) $(INCS_TEST)
+$(LIBTEST): $(OBJS_TEST) $(INCS_FT) $(INCS_TEST)
 	@echo Compiling TEST Librery: $@ ...
 	mkdir -p lib
 	$(AR) $@ $^
 
+#$(OBJ_MAIN): $(SRC_MAIN) $(INCS_FT)
 $(OBJ_MAIN): $(SRC_MAIN) $(INCS_FT) $(INCS_TEST)
 	@echo Compiling Main File: $@ ...
 	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 #%.o: %.c $(INCS_FT) $(INCS_TEST)
-$(OBJS_FT): $(SRCS_FT) $(INCS_FT)
+#$(OBJS_FT): $(SRCS_FT) $(INCS_FT) $(INCS_TEST)
+#$(OBJS_FT): $(SRCS_FT) $(INCS_FT) 
+%.o: %.c $(INCS_FT) 
 	@echo Compiling FT Objects Files: $@ ...
 	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
+	#$(CC) $(CFLAGS) $(INCFLAGS) -c $^ -o $@
 
-$(OBJS_TEST): $(SRCS_TEST) $(INCS_TEST)
-	@echo Compiling Tests Objects Files: $@ ...
-	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
+#$(OBJS_TEST): $(SRCS_TEST) $(INCS_FT) $(INCS_TEST)
+#	@echo Compiling Tests Objects Files: $@ ...
+#	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 clean:
 	@echo Delete Objects Files: $@ ...

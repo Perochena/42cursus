@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 19:47:41 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/05 19:47:43 by ramrodri         ###   ########.fr       */
+/*   Created: 2019/10/21 19:31:02 by ramrodri          #+#    #+#             */
+/*   Updated: 2019/10/23 22:56:30 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "ft.h"
 
-void	*ft_memalloc(size_t size)
+int		main(void)
 {
-	void	*zone;
-
-	if (!(zone = malloc(size)))
-		return (NULL);
-	return (ft_memset(zone, 0, size));
+	return (0);
 }

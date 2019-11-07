@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_count_nodes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 19:47:41 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/05 19:47:43 by ramrodri         ###   ########.fr       */
+/*   Created: 2019/10/22 18:33:13 by ramrodri          #+#    #+#             */
+/*   Updated: 2019/10/23 21:10:39 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "ft.h"
 
-void	*ft_memalloc(size_t size)
+int		ft_count_nodes(t_bsq *root)
 {
-	void	*zone;
+	t_bsq	*node_aux;
+	int		count;
 
-	if (!(zone = malloc(size)))
-		return (NULL);
-	return (ft_memset(zone, 0, size));
+	node_aux = root;
+	count = 0;
+	while (node_aux != NULL)
+	{
+		count++;
+		node_aux = node_aux->next;
+	}
+	return (count);
 }

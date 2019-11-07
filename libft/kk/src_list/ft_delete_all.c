@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_delete_all.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: frrodrig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 19:47:41 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/05 19:47:43 by ramrodri         ###   ########.fr       */
+/*   Created: 2019/10/23 20:09:52 by frrodrig          #+#    #+#             */
+/*   Updated: 2019/10/23 21:11:23 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "ft.h"
 
-void	*ft_memalloc(size_t size)
+void	ft_delete_all(t_bsq *root)
 {
-	void	*zone;
+	t_bsq *node_del;
 
-	if (!(zone = malloc(size)))
-		return (NULL);
-	return (ft_memset(zone, 0, size));
+	node_del = root;
+	while (node_del != NULL)
+	{
+		node_del = ft_delete_node(node_del);
+		node_del = node_del->next;
+	}
 }

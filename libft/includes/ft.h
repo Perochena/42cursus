@@ -43,6 +43,5 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size);
 unsigned int	ft_strlcat(char *dest, char *src, unsigned int size);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
-int		ft_atoi(char *str);
-void		test_atoi(void);
+int		ft_atoi(const char *str);
 #endif

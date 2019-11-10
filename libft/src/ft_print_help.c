@@ -14,9 +14,11 @@
 
 void	ft_print_help(void)
 {
-	ft_putstr("ft [all] [<ft_funtion>]\n\n");
-	ft_putstr("all\t Check all ft_functions\n");
+	ft_putstr("test_libft [all] [<ft_funtion>]\n\n");
+	ft_putstr("all\t\t Check all ft_functions\n");
 	ft_putstr("<ft_function>\t Check this <ft_function>\n\n");
-	ft_putstr("List ft_functins:\n");
+	ft_putstr("List ft_functions:\n");
 	ft_putstr("- ft_atoi\n");
+	ft_putstr("- ft_isalnum\n");
+	ft_putchar('\n');
 }

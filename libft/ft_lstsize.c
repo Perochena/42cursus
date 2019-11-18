@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/12 00:09:05 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/18 22:26:33 by ramrodri         ###   ########.fr       */
+/*   Created: 2019/11/18 23:11:41 by ramrodri          #+#    #+#             */
+/*   Updated: 2019/11/18 23:13:41 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+int		lstsize(t_list *lst)
 {
-	long	ret;
-	int		sign;
+	t_list		*cursor;
+	int			count;
 
-	sign = 1;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '-')
-		sign = -1;
-	if (*str == '-' || *str == '+')
-		str++;
-	ret = 0;
-	while (*str && ft_isdigit(*str))
+	count = 0;
+	cursor = lst;
+	while (cursor)
 	{
-		if (ret > INT_MAX / 10 || (ret == INT_MAX / 10 && ret == INT_MAX % 10))
-			return (sign > 0 ? -1 : 0);
-		ret = ret * 10 + *(str++) - '0';
+		cursor = cursor->next;
+		count++;
 	}
-	return ((int)sign * ret);
+	return (count);
 }

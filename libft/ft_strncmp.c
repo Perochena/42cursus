@@ -6,11 +6,11 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:49:17 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/05 19:52:37 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:11:29 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

@@ -6,11 +6,11 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:48:05 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/05 19:48:07 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:06:26 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 int		ft_memcmp(const void *s1, const void *s2, size_t n)
 {

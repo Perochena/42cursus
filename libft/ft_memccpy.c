@@ -6,11 +6,11 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:47:50 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/05 19:47:51 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:06:08 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {

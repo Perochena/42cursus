@@ -6,11 +6,11 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 23:44:11 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/11 23:50:56 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:09:49 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

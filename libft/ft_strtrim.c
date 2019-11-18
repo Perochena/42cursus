@@ -6,11 +6,11 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 23:43:32 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/11 23:51:10 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:12:09 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 static int	ft_isset(const char c, char const *set)
 {

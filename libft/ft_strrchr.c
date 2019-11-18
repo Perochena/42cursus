@@ -6,11 +6,11 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:49:35 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/05 19:49:37 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:11:59 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {

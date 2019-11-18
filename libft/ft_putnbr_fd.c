@@ -6,11 +6,11 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 23:45:10 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/11 23:50:41 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:08:30 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 static void	ft_putnbr_recursive_fd(unsigned int n, int *fd)
 {

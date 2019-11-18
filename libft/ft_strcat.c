@@ -6,11 +6,11 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 23:44:35 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/11 23:50:50 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:09:12 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 char	*ft_strcat(char *dest, const char *src)
 {

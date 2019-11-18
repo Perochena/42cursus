@@ -6,16 +6,16 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 23:44:58 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/11 23:50:47 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:09:01 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
-static int	count_words(const char *str, char c)
+static int		count_words(const char *str, char c)
 {
-	int i;
-	int	count_words;
+	int				i;
+	int				count_words;
 
 	i = -1;
 	count_words = 0;
@@ -25,11 +25,11 @@ static int	count_words(const char *str, char c)
 	return (count_words);
 }
 
-static char	*ft_strdup_to_char(const char *src, char c)
+static char		*ft_strdup_to_char(const char *src, char c)
 {
 	unsigned int	i;
 	unsigned int	word_len;
-	char		*s;
+	char			*s;
 
 	i = 0;
 	word_len = 0;
@@ -50,12 +50,12 @@ static char	*ft_strdup_to_char(const char *src, char c)
 	return (s);
 }
 
-char	**ft_split(char const *s, char c)
+char			**ft_split(char const *s, char c)
 {
 	unsigned int	i;
 	unsigned int	j;
 	unsigned int	nb_words;
-	char		**res;
+	char			**res;
 
 	if (!s)
 		return (NULL);

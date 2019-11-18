@@ -6,11 +6,11 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:46:37 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/05 19:46:39 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:03:55 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 void	ft_bzero(void *s, size_t n)
 {

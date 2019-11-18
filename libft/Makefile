@@ -3,7 +3,7 @@ NAME = libft.a
 # Library libft.a
 NAMELIBFT = ft
 LIBFT = libft.a
-INCS_FT = ft.h
+INCS_FT = libft.h
 SRCS_FT = $(shell find . -name "*.c")
 OBJS_FT = $(SRCS_FT:.c=.o)
 # Compile parameter

@@ -6,11 +6,11 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 18:39:11 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/10 19:08:19 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:09:40 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 char	*ft_strdup(const char *s1)
 {

@@ -6,11 +6,11 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 18:28:21 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/10 19:22:22 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:04:05 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 void	*ft_calloc(size_t count, size_t size)
 {
@@ -20,5 +20,5 @@ void	*ft_calloc(size_t count, size_t size)
 	str = malloc(count * size);
 	if (str != NULL)
 		ft_bzero(str, count * size);
-	return str;
+	return (str);
 }

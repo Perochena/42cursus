@@ -6,11 +6,11 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 23:44:50 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/11 23:50:38 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:08:46 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {

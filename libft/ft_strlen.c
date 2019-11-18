@@ -6,11 +6,11 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:49:09 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/05 19:49:11 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:11:06 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 size_t		ft_strlen(const char *s)
 {

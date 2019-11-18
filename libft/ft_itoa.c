@@ -6,15 +6,15 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 23:41:38 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/11 23:51:22 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:05:54 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 static int	get_size(int n)
 {
-	size_t res;
+	size_t		res;
 
 	if (n == 0)
 		return (1);
@@ -29,10 +29,10 @@ static int	get_size(int n)
 	return (res);
 }
 
-char	*ft_itoa(int n)
+char		*ft_itoa(int n)
 {
-	int	size;
-	char	*res;
+	int			size;
+	char		*res;
 
 	size = get_size(n);
 	if (!(res = (char *)malloc(sizeof(char) * (size + 1))))

@@ -6,11 +6,11 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:49:49 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/10 19:00:45 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:12:30 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 int		ft_tolower(int c)
 {

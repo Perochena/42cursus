@@ -6,11 +6,11 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:47:13 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/05 19:47:14 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:04:58 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
+#include "libft.h"
 
 int	ft_isascii(int c)
 {

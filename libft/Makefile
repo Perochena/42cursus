@@ -1,57 +1,62 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/11/20 20:35:37 by ramrodri          #+#    #+#              #
+#    Updated: 2019/11/20 21:38:08 by ramrodri         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 # Main program
 NAME = libft.a
-# Library libft.a
-NAMELIBFT = ft
-LIBFT = libft.a
 LIBFTSO = libft.so
-INCS_FT = libft.h
+INCLUDE = libft.h
+# Library libft
 SRCS_FT = $(shell find . -name "*.c" ! -name "*_bonus.c")
 OBJS_FT = $(SRCS_FT:.c=.o)
 # Bonus
 SRCS_Bonus = $(shell find . -name "*_bonus.c")
+OBJS_Bonus = $(SRCS_Bonus:.c=.o)
 # Compile parameter
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
+RM = rm -f
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(LIBFTSO)
-	@echo Compiling Binary File: $@ ...
-	@echo
-
-$(LIBFT): $(OBJS_FT) $(INCS_FT)
-	@echo Compiling FT Librery: $@ ...
+$(NAME): $(OBJS_FT) $(INCLUDE)
+	@echo Compiling FT Library: $@ ...
 	$(AR) $@ $^
 	@echo
 
-$(LIBFTSO): $(OBJS_FT) $(INCS_FT)
-	@echo Compiling FT Librery SO: $@ ...
-	$(AR) $@ $^
-	@echo
-
-$(OBJ_MAIN): $(SRC_MAIN) $(INCS_FT)
-	@echo Compiling Main File: $@ ...
-	$(CC) $(CFLAGS) -c $< -o $@
-	@echo
-
-%.o: %.c $(INCS_FT)
-	@echo Compiling FT Objects Files: $@ ...
-	$(CC) $(CFLAGS) -c $< -o $@
-	@echo
-
-bonus: 
+bonus: $(OBJS_Bonus) $(INCLUDE)
 	@echo Compiling Bonus Objects Files: $@ ...
+	$(AR) $(NAME) $(OBJS_Bonus)
+	@echo
+
+%.o: %.c $(INCLUDE)
+	@echo Compiling FT Objects Files: $@ ...
+	$(CC) $(CFLAGS) -fPIC -c -o $@ $<
+	@echo
 
 clean:
 	@echo Delete Objects Files: $@ ...
-	$(RM) $(OBJS_FT) $(OBJ_MAIN)
+	$(RM) $(OBJS_FT) $(OBJS_Bonus)
 	@echo
 
 fclean: clean
 	@echo Delete Library and Binary Files: $@ ...
-	$(RM) $(LIBFT) $(LIBFTSO) $(NAME)
+	$(RM) $(NAME)
 	@echo
 
 re: fclean all
+	@echo
+
+so: $(OBJS_FT) $(OBJS_Bonus) $(INCLUDE)
+	@echo Compiling Library SO: $@ ..
+	$(CC) -shared -fPIC -Wl,-soname,$(LIBFTSO) -o $(LIBFTSO) $(OBJS_FT) $(OBJS_Bonus)
 	@echo

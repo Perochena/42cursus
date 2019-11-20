@@ -6,7 +6,7 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 23:43:58 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/18 18:11:16 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/20 23:56:59 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	size_t	i;
 	char	*res;
 
+	if (s == NULL || f == NULL)
+		return (NULL);
 	if (!(res = ft_strnew(ft_strlen(s))))
 		return (NULL);
 	i = 0;

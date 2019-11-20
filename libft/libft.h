@@ -6,13 +6,14 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 18:01:16 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/20 09:01:52 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/21 00:06:45 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# define OPEN_MAX		256
 # ifndef INT_MAX
 #  define INT_MAX		0x7fffffff
 #  define INT_MIN		(-INT_MAX - 1)

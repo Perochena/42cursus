@@ -6,7 +6,7 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 23:44:50 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/18 18:08:46 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/11/21 00:11:30 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
+	if (s == NULL || fd < 0 || fd > OPEN_MAX)
+		return ;
 	write(fd, s, ft_strlen(s));
 }

@@ -12,9 +12,10 @@
 
 #include "libft.h"
 
-int		ft_tolower(int c)
+//int		ft_tolower(int c)
+char		ft_tolower(char c)
 {
 	if (ft_isupper(c))
-		return (c + 32);
-	return (c);
+		return ((unsigned)(c + 32));
+	return ((unsigned)c);
 }

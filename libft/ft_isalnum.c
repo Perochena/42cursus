@@ -15,7 +15,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-int	ft_isalnum(int c)
+//int	ft_isalnum(int c)
+char	ft_isalnum(char c)
 {
 	return ((ft_isalpha(c) || ft_isdigit(c)) ? 1 : 0);
 }

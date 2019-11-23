@@ -15,5 +15,6 @@
 int		ft_isalpha(int c)
 {
 	//return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
-	return (ft_isupper(c) || ft_islower(c));
+	//return (ft_isupper(c) || ft_islower(c));
+	return ((unsigned)c|32)-'a' < 26;
 }

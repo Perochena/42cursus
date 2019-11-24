@@ -21,7 +21,6 @@ t_list	ft_lstnew(void const *content)
 	new.next=NULL;
 	return (new);
 }
-*/
 t_list	*ft_lstnew(void const *content)
 {
 	t_list	*elem;
@@ -31,4 +30,13 @@ t_list	*ft_lstnew(void const *content)
 	elem->content = (void*)content;
 	elem->next = NULL;
 	return (elem);
+}
+*/
+t_list	ft_lstnew(void const *content)
+{
+	t_list *new;
+   
+	new = malloc(sizeof(t_list));
+	new->content = (void*)content;
+	return (*new);
 }

@@ -12,9 +12,12 @@
 
 #include "libft.h"
 
-//int		ft_toupper(int c)
-char		ft_toupper(char c)
+int		ft_toupper(int c)
 {
+	if (c == -1)
+		return (-1);
+	if (c < 0)
+		return ((unsigned char)c);
 	if (ft_islower(c))
 		return (c - 32);
 	return (c);

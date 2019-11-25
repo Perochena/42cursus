@@ -11,12 +11,19 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
 
-//int	ft_isalnum(int c)
-char	ft_isalnum(char c)
+int	ft_isalnum(int c)
 {
-	return ((ft_isalpha(c) || ft_isdigit(c)) ? 1 : 0);
+	if (c == -1)
+		return (-1);
+	if (c < 0)
+		return ((unsigned char)c);
+	//if (ft_isdigit(c) != 0 || ft_isalpha(c) != 0)
+	//	return (1);
+	//return (0);
+	if (ft_isalpha(c) || ft_isdigit(c))
+		return (c);
+	else
+		return (0);
+
 }

@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 19:49:49 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/18 18:12:30 by ramrodri         ###   ########.fr       */
+/*   Created: 2019/11/05 19:50:07 by ramrodri          #+#    #+#             */
+/*   Updated: 2019/11/18 18:12:39 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 int		ft_tolower(int c)
-//char		ft_tolower(char c)
 {
-        if((c >= 'A') && (c <= 'Z')){
-            c += (unsigned char)32;
-        }
-/*
+	if (c == -1)
+		return (-1);
+	if (c < 0)
+		return ((unsigned char)c);
 	if (ft_isupper(c))
-		return ((unsigned)(c + 32));
-	return ((unsigned)c);
-*/
+		return (c + 32);
 	return (c);
 }

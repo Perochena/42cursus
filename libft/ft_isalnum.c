@@ -11,19 +11,34 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
+#include <ctype.h>
 
 int	ft_isalnum(int c)
 {
-	if (c == -1)
-		return (-1);
-	if (c < 0)
-		return ((unsigned char)c);
+	//if (c < 0)
+	//	return (0);
 	//if (ft_isdigit(c) != 0 || ft_isalpha(c) != 0)
 	//	return (1);
 	//return (0);
 	if (ft_isalpha(c) || ft_isdigit(c))
-		return (c);
+		return (1);
 	else
 		return (0);
 
 }
+/*
+int main(int argc, char *argv[]) 
+{
+  if (argc!=2) {
+    printf("Ha olvidado el parametro.\n");
+    exit(1);
+  }
+
+  int num = (int)*argv[1];
+
+	printf("Isalnum: %d\n", isalnum(num));
+	printf("FT_isalnum: %d\n", ft_isalnum(num));
+	return (0);
+}
+*/

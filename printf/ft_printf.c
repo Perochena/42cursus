@@ -1,19 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/26 22:58:49 by ramrodri          #+#    #+#             */
+/*   Updated: 2019/11/26 22:58:51 by ramrodri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include<stdio.h> 
 #include<stdarg.h>                      
 
-void Myprintf(char *,...);              //Our printf function
-char* convert(unsigned int, int);       //Convert integer number into octal, hex, etc.
+int ft_printf(const char *,...);
+char* convert(unsigned int, int);
 
 
 int main() 
 { 
-    Myprintf(" WWW.FIRMCODES.COM \n %d", 9); 
+    ft_printf(" WWW.FIRMCODES.COM \n %d", 9); 
 
     return 0;
 } 
 
 
-void Myprintf(char* format,...) 
+int ft_printf(char* format,...) 
 { 
     char *traverse; 
     unsigned int i; 

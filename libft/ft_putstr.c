@@ -6,7 +6,7 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 17:53:25 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/18 18:08:40 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/12/02 19:19:36 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_putstr(char *str)
 {
+	if (str == NULL)
+		return ;
 	while (*str)
 	{
 		ft_putchar(*str);

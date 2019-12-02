@@ -6,7 +6,7 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:50:07 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/18 18:12:39 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/12/02 19:29:06 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 int		ft_tolower(int c)
 {
-	if (c == -1)
-		return (-1);
-	if (c < 0)
-		return ((unsigned char)c);
 	if (ft_isupper(c))
 		return (c + 32);
 	return (c);

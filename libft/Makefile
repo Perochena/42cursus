@@ -6,7 +6,7 @@
 #    By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/20 20:35:37 by ramrodri          #+#    #+#              #
-#    Updated: 2019/11/20 23:29:40 by ramrodri         ###   ########.fr        #
+#    Updated: 2019/12/02 19:06:58 by ramrodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,12 @@ NAME = libft.a
 LIBFTSO = libft.so
 INCLUDE = libft.h
 # Library libft
-SRCS_FT = $(shell find . -name "*.c" ! -name "*_bonus.c" -printf "%f\n")
+#SRCS_FT = $(shell find . -name "*.c" ! -name "*_bonus.c" -printf "%f\n")
+SRCS_FT = $(shell find . -name "*.c" ! -name "*_bonus.c")
 OBJS_FT = $(SRCS_FT:.c=.o)
 # Bonus
-SRCS_Bonus = $(shell find . -name "*_bonus.c" -printf "%f\n")
+#SRCS_Bonus = $(shell find . -name "*_bonus.c" -printf "%f\n")
+SRCS_Bonus = $(shell find . -name "*_bonus.c")
 OBJS_Bonus = $(SRCS_Bonus:.c=.o)
 # Compile parameter
 CC = gcc

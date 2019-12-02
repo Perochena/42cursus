@@ -6,72 +6,85 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 23:44:58 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/18 18:09:01 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/12/02 20:45:10 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		count_words(const char *str, char c)
+static size_t	ft_wordcount(const char *s, char c)
 {
-	int				i;
-	int				count_words;
+	size_t	count;
 
-	i = -1;
-	count_words = 0;
-	while (str[++i])
-		if (str[i] != c && (str[i + 1] == c || !str[i + 1]))
-			count_words++;
-	return (count_words);
+	count = 0;
+	while (*s)
+	{
+		while (*s && *s == c)
+			s++;
+		if (*s)
+			count++;
+		while (*s && *s != c)
+			s++;
+	}
+	return (count);
 }
 
-static char		*ft_strdup_to_char(const char *src, char c)
+static char		*ft_strncpy(char *dst, const char *src, size_t n)
 {
-	unsigned int	i;
-	unsigned int	word_len;
-	char			*s;
+	char	*d;
 
-	i = 0;
-	word_len = 0;
-	while (src[i] && src[i] != c)
+	if (!n)
+		return (dst);
+	d = dst;
+	while (n && *src)
 	{
-		word_len++;
-		i++;
+		*dst++ = *src++;
+		n--;
 	}
-	if (!(s = malloc(sizeof(*s) * (word_len + 1))))
+	while (n)
+	{
+		*dst++ = '\0';
+		n--;
+	}
+	return (d);
+}
+
+static char		*ft_strndup(const char *s1, size_t n)
+{
+	char	*cpy;
+
+	if (!(cpy = (char *)malloc(sizeof(char) * (n + 1))))
 		return (NULL);
-	i = 0;
-	while (src[i] && src[i] != c)
-	{
-		s[i] = src[i];
-		i++;
-	}
-	s[i] = '\0';
-	return (s);
+	ft_strncpy(cpy, s1, n);
+	cpy[n] = '\0';
+	return (cpy);
 }
 
 char			**ft_split(char const *s, char c)
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	nb_words;
-	char			**res;
+	char	**tab;
+	size_t	len;
+	size_t	i;
 
 	if (!s)
 		return (NULL);
-	nb_words = count_words(s, c);
-	if (!(res = malloc(sizeof(char *) * nb_words + 1)))
+	len = ft_wordcount(s, c);
+	if (!(tab = (char **)malloc(sizeof(char *) * (len + 1))))
 		return (NULL);
+	tab[len] = NULL;
 	i = 0;
-	j = 0;
-	while (i < nb_words)
+	while (*s)
 	{
-		while (s[j] && s[j] == c)
-			j++;
-		res[i++] = ft_strdup_to_char(&s[j], c);
-		while (s[j] && s[j] != c)
-			j++;
+		len = 0;
+		while (*s && *s == c)
+			s++;
+		while (*s && *s != c)
+		{
+			s++;
+			len++;
+		}
+		if (*s || (!*s && len))
+			tab[i++] = ft_strndup(s - len, len);
 	}
-	res[i] = 0;
-	return (res);
+	return (tab);
 }

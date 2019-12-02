@@ -6,7 +6,7 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:47:02 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/18 18:04:40 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/12/02 19:30:57 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,5 @@
 
 int		ft_isalpha(int c)
 {
-	//return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
-	//return (ft_isupper(c) || ft_islower(c));
 	return (((unsigned)(c) | 32) - 'a' < 26);
 }

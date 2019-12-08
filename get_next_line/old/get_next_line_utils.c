@@ -6,7 +6,7 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:38:57 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/27 19:43:11 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/12/08 17:57:18 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	*ft_calloc(size_t count, size_t size)
 	str = NULL;
 	str = malloc(count * size);
 	if (str != NULL)
-		ft_bzero(str, count * size);
+		ft_memset(str, '\0', count * size);
 	return (str);
 }
 
@@ -147,4 +147,3 @@ char	*ft_strchr(const char *s, int c)
 		return (ss + i);
 	return (NULL);
 }
-

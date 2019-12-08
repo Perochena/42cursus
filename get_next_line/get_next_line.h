@@ -5,35 +5,43 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/27 19:25:22 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/27 20:03:53 by ramrodri         ###   ########.fr       */
+/*   Created: 2019/12/08 18:34:57 by ramrodri          #+#    #+#             */
+/*   Updated: 2019/12/08 18:34:59 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFFER_SIZE 8
-# define FD_SIZE 4096
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/uio.h>
 # include <unistd.h>
+# include <stdlib.h>
+# define BUFFER_SIZE 32
 
-int	    get_next_line(const int fd, char **line);
-char	*ft_strdup(const char *s1);
-void	ft_strdel(char **as);
-void	ft_memdel(void **ap);
-char	*ft_strsub(char const *s, unsigned int start, size_t len);
-char	*ft_strnew(size_t size);
-void	*ft_calloc(size_t count, size_t size);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strcpy(char *dest, const char *src);
-char	*ft_strcat(char *dest, const char *src);
-size_t	ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
-void    ft_bzero(void *s, size_t n);
-void    *ft_memset(void *s, int c, size_t n);
+/*
+** t_f: Chained file info list element
+** d	File descriptor
+** s	Line buffer size
+** b	Line buffer
+** t	Pointer to temporary buffer used when reallocating line buffer
+** r	Read buffer
+** i	Index of next character to read in read buffer
+** j 	Number of characters in read buffer
+** k	Line buffer iterator
+** n	Next element in chained list
+*/
+
+typedef struct	s_f
+{
+	int				d;
+	int				s;
+	char			*b;
+	char			*t;
+	char			r[BUFFER_SIZE];
+	int				i;
+	int				j;
+	int				k;
+	struct s_f		*n;
+}				t_f;
+
+int				get_next_line(int fd, char **line);
 #endif

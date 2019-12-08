@@ -6,14 +6,14 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 18:01:16 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/12/08 09:49:13 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/12/08 10:13:04 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# define OPEN_MAX		256
+# define OPEN_MAX_FILE		10240
 # ifndef INT_MAX
 #  define INT_MAX		0x7fffffff
 #  define INT_MIN		(-INT_MAX - 1)
@@ -21,8 +21,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <string.h>
-# include <ctype.h>
 
 typedef struct		s_list
 {

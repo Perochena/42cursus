@@ -6,7 +6,7 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 17:53:12 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/11/21 00:08:51 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/12/08 10:04:50 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		putwchar_fd(int c, int fd)
 {
-	if (fd < 0 || fd > OPEN_MAX)
+	if (fd < 0 || fd > OPEN_MAX_FILE)
 		return ;
 	write(fd, &c, 1);
 }

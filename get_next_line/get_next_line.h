@@ -30,7 +30,7 @@
 ** n	Next element in chained list
 */
 
-typedef struct	s_f
+typedef struct	s_file
 {
 	int				d;
 	int				s;
@@ -40,8 +40,8 @@ typedef struct	s_f
 	int				i;
 	int				j;
 	int				k;
-	struct s_f		*n;
-}				t_f;
+	struct s_file	*next;
+}				t_file;
 
 int				get_next_line(int fd, char **line);
 #endif

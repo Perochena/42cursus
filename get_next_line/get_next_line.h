@@ -12,7 +12,7 @@
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 8
+# define BUFFER_SIZE 8
 # define FD_SIZE 4096
 
 # include <stdlib.h>
@@ -22,7 +22,7 @@
 # include <sys/uio.h>
 # include <unistd.h>
 
-int	get_next_line(const int fd, char **line);
+int	    get_next_line(const int fd, char **line);
 char	*ft_strdup(const char *s1);
 void	ft_strdel(char **as);
 void	ft_memdel(void **ap);

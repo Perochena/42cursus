@@ -52,12 +52,12 @@ int		get_next_line(const int fd, char **line)
 {
 	int			ret;
 	static char	*s[FD_SIZE];
-	char		buff[BUFF_SIZE + 1];
+	char		buff[BUFFER_SIZE + 1];
 	char		*tmp;
 
 	if (fd < 0 || line == NULL)
 		return (-1);
-	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
+	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		buff[ret] = '\0';
 		if (s[fd] == NULL)

@@ -6,7 +6,7 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:34:47 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/12/08 19:10:07 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/12/10 21:58:28 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 int		get_next_line(int fd, char **line)
 {
 	static t_file	*openfiles;
-	t_file			*files;
-	int				i;
+	t_file		*files;
+	int		i;
 
 	files = openfiles;
-	while (!(i = 0) && f && f->d != fd)
+	while (!(i = 0) && files && files->d != fd)
 		files = files->next;
 	if (fd < 0 || (!files && (!(files = malloc(sizeof(*files))) ||
 		((files->next = openfiles) && 0) || (files->d *= 0) || (files->d += fd) < 0 ||

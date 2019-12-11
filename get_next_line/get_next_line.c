@@ -6,7 +6,7 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:34:47 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/12/11 22:14:18 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/12/11 22:33:10 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int		get_next_line(int fd, char **line)
 	if (!line)
 		return (-1);
 	files = openfiles;
-	while (!(i = 0) && files && files->fd != fd)
+	i = 0;
+	while (files && files->fd != fd)
 		files = files->next;
 	if (fd < 0 || (!files && (!(files = malloc(sizeof(*files))) ||
 		((files->next = openfiles) && 0) || (files->fd *= 0) || (files->fd += fd) < 0 ||

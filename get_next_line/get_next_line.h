@@ -6,7 +6,7 @@
 /*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:34:57 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/12/10 22:02:07 by ramrodri         ###   ########.fr       */
+/*   Updated: 2019/12/10 22:23:31 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,19 @@
 # define BUFFER_SIZE 32
 
 /*
-** t_file: Chained file info list element
-** fd	File descriptor
-** s	Line buffer size
-** b	Line buffer
-** t	Pointer to temporary buffer used when reallocating line buffer
-** r	Read buffer
-** i	Index of next character to read in read buffer
 ** j 	Number of characters in read buffer
-** k	Line buffer iterator
-** next	Next element in chained list
 */
 
 typedef struct	s_file
 {
 	int				fd;
-	int				s;
-	char			*b;
-	char			*t;
-	char			r[BUFFER_SIZE];
-	int				i;
+	int				line_size;
+	char			*line;
+	int				line_index;
+	char			*tmp;
+	char			buffer[BUFFER_SIZE];
+	int				buffer_index;
 	int				j;
-	int				k;
 	struct s_file	*next;
 }				t_file;
 

@@ -6,12 +6,13 @@
 #    By: tfleming <tfleming@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/19 14:57:38 by tfleming          #+#    #+#              #
-#    Updated: 2019/12/10 23:48:02 by ramrodri         ###   ########.fr        #
+#    Updated: 2019/12/16 18:28:08 by ramrodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 echo "making get_next_line files..."
-gcc -Wall -Wextra -Werror ../get_next_line.h ../get_next_line.c main.c -o test_gnl
+gcc -Wall -Wextra -Werror ../get_next_line.h -c ../get_next_line.c main.c
+gcc -Wall -Wextra -Werror get_next_line.o main.o -o test_gnl
 if [ ! -f test_gnl ]; then
         echo "failed compilation"
         exit
@@ -22,8 +23,8 @@ chmod u+x test_gnl
 
 tester () {
 	exec 3>&1 4>&2
-	#TIMING=$(( { time ./test_gnl $1 1>&3 2>&4; } 2>&1 ) | grep "real" | cut -f 2)
-	$(./test_gnl $1 1>&3 2>&4)
+	TIMING=$(( { time ./test_gnl $1 1>&3 2>&4; } 2>&1 ) | grep "real" | cut -f 2)
+	#$(./test_gnl $1 1>&3 2>&4)
 	exec 3>&- 4>&-
 	echo "done testing \"$1\": "
 	if (cmp --silent "$1" "this_out.txt")
@@ -32,7 +33,7 @@ tester () {
 	else
 		echo "   OK"
 	fi
-	#printf "done testing %-25s (%s)\n" "\"$1\"" "$TIMING"
+	printf "done testing %-25s (%s)\n" "\"$1\"" "$TIMING"
 }
 
 echo "testing..."

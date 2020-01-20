@@ -6,15 +6,15 @@
 #    By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/20 20:35:37 by ramrodri          #+#    #+#              #
-#    Updated: 2020/01/20 20:20:22 by ramrodri         ###   ########.fr        #
+#    Updated: 2020/01/20 20:23:15 by ramrodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Main program
-NAME = libftprint.a
-LIBFTSO = libftprint.so
-INCLUDE = libftprint.h
-# Library libftprint
+NAME = libftprintf.a
+LIBFTSO = libftprintf.so
+INCLUDE = libftprintf.h
+# Library libftprintf
 #SRCS_FT = $(shell find . -name "*.c" ! -name "*_bonus.c" -printf "%f\n")
 #SRCS_FT = $(shell find . -name "*.c" ! -name "*_bonus.c")
 SRCS_FT = $(shell find . -name "*.c" ! -name "main.c")

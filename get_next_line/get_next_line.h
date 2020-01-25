@@ -3,36 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramrodri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tfleming <tfleming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/08 18:34:57 by ramrodri          #+#    #+#             */
-/*   Updated: 2019/12/10 22:23:31 by ramrodri         ###   ########.fr       */
+/*   Created: 2014/11/11 14:24:33 by tfleming          #+#    #+#             */
+/*   Updated: 2020/01/25 19:24:24 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <unistd.h>
 # include <stdlib.h>
-# define BUFFER_SIZE 32
+# include <unistd.h>
 
-/*
-** j 	Number of characters in read buffer
-*/
+# define BUF_SIZE		1
+# define SPILL_MULT		2
+# define MAX_FD			1000
 
-typedef struct	s_file
+typedef struct		s_stock
 {
-	int				fd;
-	int				line_size;
-	char			*line;
-	int				line_index;
-	char			*tmp;
-	char			buffer[BUFFER_SIZE];
-	int				buffer_index;
-	int				j;
-	struct s_file	*next;
-}				t_file;
+	char			*spill;
+	long			length;
+	long			lu;
+	int				read_ret;
+	char			*line_end;
+}					t_stock;
 
-int				get_next_line(int fd, char **line);
+char				*ft_strcpy(char *dest, const char *src);
+char				*ft_strsub(char const *source, size_t start, size_t len);
+void				*ft_memcpy(void *dest, const void *source, size_t len);
+char				*ft_strncpy(char *dest, const char *src, size_t max);
+char				*ft_strnew(size_t size);
+void				*ft_memalloc(size_t size);
+void				ft_bzero(void *string, size_t len);
+void				*ft_memset(void *destination, int int_value, size_t len);
+int					get_next_line(int fd, char **line);
+
 #endif

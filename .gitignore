@@ -3,3 +3,5 @@ a.out
 *.a
 *.so
 *.o
+test_gnl1
+test_gnl2

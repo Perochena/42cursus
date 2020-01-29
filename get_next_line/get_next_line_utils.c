@@ -1,97 +1,65 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaleman <jaleman@student.42.us.org>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/11/26 07:11:51 by jaleman           #+#    #+#             */
+/*   Updated: 2020/01/29 11:17:14 by ramrodri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-char		*ft_strcpy(char *dest, const char *src)
+/*
+** Allocates sufficient memory for a copy of the string s1, does the copy,
+** and returns a pointer to it.
+*/
+
+char			*ft_strdup(const char *s1)
 {
-	size_t	i;
-
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-char			*ft_strsub(char const *source, size_t start, size_t len)
-{
-	char		*substring;
-
-	substring = ft_strnew(len);
-	if (!substring)
-		return (NULL);
-	ft_strncpy(substring, source + (start * sizeof(char)), len);
-	return (substring);
-}
-
-void			*ft_memcpy(void *dest, const void *source, size_t len)
-{
+	char		*s2;
 	size_t		i;
 
 	i = 0;
-	while (i < len)
-	{
-		((char*)dest)[i] = ((char*)source)[i];
-		i++;
-	}
-	return (dest);
-}
-
-char		*ft_strncpy(char *dest, const char *src, size_t max)
-{
-	size_t	i;
-
-	i = 0;
-	while (src[i] != '\0' && i < max)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	while (i < max)
-	{
-		dest[i] = '\0';
-		i++;
-	}
-	return (dest);
-}
-
-char			*ft_strnew(size_t size)
-{
-	return (ft_memalloc(size + 1));
-}
-
-void			*ft_memalloc(size_t size)
-{
-	void	*fresh;
-
-	if (size == 0)
+	while (s1[i])
+		i += 1;
+	if (!(s2 = (char *)malloc(sizeof(char) * (i + 1))))
 		return (NULL);
-	fresh = malloc(size);
-	if (fresh == NULL)
-		return (NULL);
-	ft_bzero(fresh, size);
-	return (fresh);
+	i = -1;
+	while (s1[++i])
+		s2[i] = s1[i];
+	s2[i] = '\0';
+	return (s2);
 }
 
-void			ft_bzero(void *string, size_t len)
-{
-	ft_memset(string, '\0', len);
-}
+/*
+** Allocates with malloc() and returns a “fresh” string ending with ’\0’,
+** result of the concatenation of s1 and s2. If the allocation fails the
+** function returns NULL.
+*/
 
-void			*ft_memset(void *destination, int int_value, size_t len)
+char			*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t			i;
-	unsigned char	*location;
-	unsigned char	value;
+	char		*s3;
+	char		*tmp_s3;
+	size_t		i;
+	size_t		j;
 
-	value = (unsigned char)int_value;
-	location = (unsigned char*)destination;
+	j = 0;
 	i = 0;
-	while (i < len)
-	{
-		location[i] = value;
-		i++;
-	}
-	return (destination);
+	while (s1[i])
+		i += 1;
+	while (s2[j])
+		j += 1;
+	if (!s1 || !s2 || !(s3 = (char *)malloc(sizeof(char) * (i + j + 1))))
+		return (NULL);
+	tmp_s3 = s3;
+	while (*s1 != '\0')
+		*tmp_s3++ = *s1++;
+	while (*s2 != '\0')
+		*tmp_s3++ = *s2++;
+	*tmp_s3 = '\0';
+	return (s3);
 }

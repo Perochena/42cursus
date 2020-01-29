@@ -3,120 +3,121 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfleming <tfleming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaleman <jaleman@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/11 13:20:06 by tfleming          #+#    #+#             */
-/*   Updated: 2015/01/15 20:20:10 by tfleming         ###   ########.fr       */
+/*   Created: 2016/11/26 07:11:51 by jaleman           #+#    #+#             */
+/*   Updated: 2020/01/29 11:20:25 by ramrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 /*
-** for deal_with_returns, the code was too atrocious with all the
-** (*stock)s, so I just pass it and also the pointer to it.
+** Verify if whatever is in the stack, has a newline. If it doesn't, returns
+** a zero (0) to indicate that it's not valid. If there is a newline, we make a
+** copy of the stack into the line, and we copied whatever was in the stack
+** before, back to the stack (with the temporary stack that we created).
 */
 
-/*
-** increase_spill_size:
-** increases the size of spill by at least BUF_SIZE
-** returns non-zero if error
-*/
-
-/*
-** for better performance, replace read line with:
-** read(fd, stocks[fd]->spill + stocks[fd]->lu
-** , stocks[fd]->length - stocks[fd]->lu);
-*/
-
-static int		end_of_line(t_stock *stock)
+static int			gnl_verify_line(char **stack, char **line)
 {
-	while (stock->lu > stock->line_end - stock->spill
-			&& *(stock->line_end) != '\n')
-		stock->line_end++;
-	if (*(stock->line_end) == '\n')
-		return (stock->lu > stock->line_end - stock->spill);
-	return (0);
-}
+	char			*tmp_stack;
+	char			*strchr_stack;
+	int				i;
 
-static int		increase_spill_size(t_stock *stock)
-{
-	char		*new_spill;
-	long		new_size;
-
-	new_size = stock->length * SPILL_MULT;
-	if (new_size < stock->length + BUF_SIZE)
-		new_size += BUF_SIZE;
-	new_spill = malloc((new_size + 1) * sizeof(char));
-	if (!new_spill)
-		return (1);
-	ft_strcpy(new_spill, stock->spill);
-	new_spill[new_size] = '\0';
-	stock->line_end = new_spill + (stock->line_end - stock->spill);
-	free(stock->spill);
-	stock->spill = new_spill;
-	stock->length = new_size;
-	return (0);
-}
-
-static int		setup(t_stock **stock)
-{
-	*stock = malloc(sizeof(t_stock));
-	if (!*stock)
-		return (1);
-	(*stock)->length = BUF_SIZE;
-	(*stock)->spill = malloc(((*stock)->length + 1) * sizeof(char));
-	if (!(*stock)->spill)
-		return (1);
-	(*stock)->spill[(*stock)->length] = '\0';
-	(*stock)->lu = 0;
-	(*stock)->line_end = (*stock)->spill;
-	(*stock)->read_ret = 1;
-	return (0);
-}
-
-static int		deal_with_returns(t_stock **pointer_to_stock
-									, t_stock *stock, char **line)
-{
-	if (stock->read_ret < 0)
-		return (-1);
-	*line = ft_strsub(stock->spill, 0, stock->line_end - stock->spill);
-	if ((stock->read_ret <= 0 || stock->lu <= 0))
-	{
-		if (stock->spill)
-			free(stock->spill);
-		free(stock);
-		*pointer_to_stock = NULL;
-		return (0);
-	}
-	stock->lu += stock->spill - stock->line_end
-		- (stock->read_ret > 0
-			&& *(stock->line_end) == '\n'
-			&& stock->lu != stock->line_end - stock->spill);
-	ft_memcpy(stock->spill, stock->line_end + 1, stock->lu);
-	stock->line_end = stock->spill;
+	i = 0;
+	strchr_stack = *stack;
+	while (strchr_stack[i] != '\n')
+		if (!strchr_stack[i++])
+			return (0);
+	tmp_stack = &strchr_stack[i];
+	*tmp_stack = '\0';
+	*line = ft_strdup(*stack);
+	*stack = ft_strdup(tmp_stack + 1);
 	return (1);
 }
 
-int				get_next_line(int const fd, char **line)
-{
-	static t_stock	*stocks[MAX_FD];
+/*
+** Reads into the heap, from the file descriptors, a specific number of bytes
+** defined by the BUFFER_SIZE macro in the get_nex_line.h file. It's going to
+** continue the reading when the return value of the read function is greater
+** than zero (no errors, or if there is nothing else to read).
+** If there is something in the stack, we will concatinate whatever is in
+** there, with whatever is read in the heap. If no, we will just add
+** whatever is in the heap into the stack. Then we will verify the stack to
+** see if there is a newline. If there is, we will break from the while loop
+** and force the positive ret value into a one (1), using the RET_VALUE() macro.
+** This answer form SO helped me visualize the stack and heap in a better way:
+** http://stackoverflow.com/a/1213360
+*/
 
-	if (fd >= MAX_FD || fd < 0 || line == NULL)
-		return (-1);
-	if (stocks[fd] && stocks[fd]->read_ret == 0)
-		return (0);
-	if (!stocks[fd] && setup(&stocks[fd]))
-		return (-1);
-	while (stocks[fd]->read_ret > 0 && !((end_of_line(stocks[fd]))))
+static	int			gnl_read_file(int fd, char *heap, char **stack, char **line)
+{
+	int				ret;
+	char			*tmp_stack;
+
+	while ((ret = read(fd, heap, BUFFER_SIZE)) > 0)
 	{
-		while (stocks[fd]->lu + BUF_SIZE > stocks[fd]->length)
-			if (increase_spill_size(stocks[fd]))
-				return (-1);
-		stocks[fd]->read_ret = read(fd, stocks[fd]->spill + stocks[fd]->lu
-									, BUF_SIZE);
-		stocks[fd]->lu += stocks[fd]->read_ret;
+		heap[ret] = '\0';
+		if (*stack)
+		{
+			tmp_stack = *stack;
+			*stack = ft_strjoin(tmp_stack, heap);
+			free(tmp_stack);
+			tmp_stack = NULL;
+		}
+		else
+			*stack = ft_strdup(heap);
+		if (gnl_verify_line(stack, line))
+			break ;
 	}
-	return (deal_with_returns(&stocks[fd], stocks[fd], line));
+	return (ret > 0 ? 1 : ret);
+}
+
+/*
+** This is where the real shit happens.
+** It first checks for errors (is the line is empty, if the number of the file
+** descriptor is invalid, or if it fails to allocate the heap), so it can return
+** a minus one (-1) if needed.
+**
+** If there is something in the stack (because we are using a static variable),
+** we verify that there is a newline. If not, we allocate memory for the heap,
+** and we read the file.
+**
+** When the reading of the file ends, we will free the heap (we're not gonna
+** use it anymore), and we check for the value of ret (if it's 1 or -1, return
+** that, if the stack is empty, return 0). If neither of these conditions are
+** valid, we assing line to the value of the stack, free the stack, and return 1
+**
+** A good read about file descriptors:
+** http://www.bottomupcs.com/file_descriptors.xhtml
+*/
+
+int					get_next_line(int const fd, char **line)
+{
+	static char		*stack[MAX_FD];
+	char			*heap;
+	int				ret;
+	int				i;
+
+	if (!line || (fd < 0 || fd >= MAX_FD) || (read(fd, stack[fd], 0) < 0) \
+		|| !(heap = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1)))
+		return (-1);
+	if (stack[fd])
+		if (gnl_verify_line(&stack[fd], line))
+			return (1);
+	i = 0;
+	while (i < BUFFER_SIZE)
+		heap[i++] = '\0';
+	ret = gnl_read_file(fd, heap, &stack[fd], line);
+	free(heap);
+	if (ret != 0 || stack[fd] == NULL || stack[fd][0] == '\0')
+	{
+		if (!ret && *line)
+			*line = NULL;
+		return (ret);
+	}
+	*line = stack[fd];
+	stack[fd] = NULL;
+	return (1);
 }

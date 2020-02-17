@@ -1,29 +1,37 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/05 14:28:51 by fgata-va          #+#    #+#             */
-/*   Updated: 2020/01/13 18:48:19 by fgata-va         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
-# endif
+
+# include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
 
-int			get_next_line(int fd, char **line);
-size_t		ft_strlen(const char *s);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_strjoin(char const *s1, char const *s2);
-char		*ft_strdup(const char *s1);
-char        *ft_strchr(const char *s, int c);
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 64
+# endif
+
+typedef struct	s_str
+{
+	char			*content;
+	struct s_str	*next;
+}				t_str;
+
+typedef struct	s_file
+{
+	int			fd;
+	t_str		*str;
+	struct s_fd	*next;
+}				t_file;
+
+int				get_next_line(int fd, char **line);
+
+char			*ft_strdup(char const *s1);
+
+t_file			*find_file(t_file **list, int fd, int *new);
+
+int				find_nl(t_str *str, char *sim_str);
+
+int				read_file(t_str **str, char *buffer, int fd);
+
+int				delete_list(t_str **list);
 
 #endif

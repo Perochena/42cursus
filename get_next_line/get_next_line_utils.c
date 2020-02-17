@@ -1,112 +1,125 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/09 19:32:20 by fgata-va          #+#    #+#             */
-/*   Updated: 2020/01/13 18:48:15 by fgata-va         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
-size_t				ft_strlen(const char *s)
+char	*ft_strdup(const char *s1)
 {
-	size_t			i;
+	char	*new;
+	int		i;
+	int		size;
 
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-
-char				*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char			*subst;
-	size_t			maxl;
-	size_t			i;
-	size_t			j;
-
-	if (!s)
-		return (NULL);
-	maxl = ft_strlen(s);
-	if (start >= maxl)
-		return (ft_strdup(""));
-	if (!(subst = (char *)malloc(sizeof(char) * len + 1)))
-		return (NULL);
-	i = start;
-	j = 0;
-	while (j < len && s[i] != '\0')
-	{
-		subst[j] = s[i];
-		j++;
-		i++;
-	}
-	subst[j] = '\0';
-	return (subst);
-}
-
-char				*ft_strjoin(char const *s1, char const *s2)
-{
-	char			*str;
-	unsigned int	i;
-	unsigned int	j;
-
-	if (!s2 || !s1)
-		return (ft_strdup(""));
-	if (!(str = (char *)malloc(sizeof(char) *
-	(ft_strlen(s1) + ft_strlen(s2) + 1))))
+	size = 0;
+	while (s1[size])
+		++size;
+	if (!(new = malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	i = 0;
-	while (s1[i] != '\0')
+	while (s1[i])
 	{
-		str[i] = s1[i];
+		new[i] = s1[i];
 		i++;
 	}
-	j = 0;
-	while (s2[j] != '\0')
-	{
-		str[i + j] = s2[j];
-		j++;
-	}
-	str[i + j] = '\0';
-	return (str);
+	new[i] = '\0';
+	return (new);
 }
 
-char				*ft_strdup(const char *s1)
+t_file
+	*find_file(t_file **list, int fd, int *new)
 {
-	char			*s2;
-	size_t			l;
-	unsigned int	i;
+	t_file	*ret;
+	t_file	*first;
 
-	l = ft_strlen(s1);
-	s2 = (char *)malloc(l + 1);
-	i = 0;
-	if (s2)
+	ret = NULL;
+	first = *list;
+	*new = 0;
+	while (*list && !ret)
 	{
-		while (s1[i] != '\0' && i < l)
-		{
-			s2[i] = s1[i];
+		if ((*list)->fd == fd)
+			ret = *list;
+		*list = (*list)->next;
+	}
+	*list = first;
+	if (!ret)
+	{
+		if (!(ret = (t_file *)malloc(sizeof(*ret))))
+			return (NULL);
+		ret->fd = fd;
+		ret->next = *list;
+		ret->str = NULL;
+		*list = ret;
+		*new = 1;
+	}
+	return (ret);
+}
+
+int
+	find_nl(t_str *str, char *sim_str)
+{
+	int	i;
+
+	if (!str)
+	{
+		i = 0;
+		while (sim_str[i] && sim_str[i] != '\n')
 			i++;
-		}
-		s2[i] = '\0';
+		if (sim_str[i] == '\n')
+			return (1);
 	}
 	else
-		return (0);
-	return (s2);
+	{
+		while (str)
+		{
+			i = 0;
+			while (str->content[i]
+				&& str->content[i] != '\n')
+				i++;
+			if (str->content[i] == '\n')
+				return (1);
+			str = str->next;
+		}
+	}
+	return (0);
 }
 
-char				*ft_strchr(const char *s, int c)
+int
+	read_file(t_str **str, char *buffer, int fd)
 {
-	while (*s != '\0')
+	int		r;
+	t_str	*new;
+	t_str	*first;
+
+	if ((r = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
-		if (c == *s)
-			return ((char *)s);
-		s++;
+		buffer[r] = 0;
+		if (!(new = (t_str*)malloc(sizeof(*new)))
+			|| !(new->content = ft_strdup(buffer)))
+			return (-2);
+		new->next = NULL;
+		if (!*str)
+			*str = new;
+		else
+		{
+			first = *str;
+			while ((*str)->next)
+				(*str) = (*str)->next;
+			(*str)->next = new;
+			*str = first;
+		}
+		return (1);
 	}
-	if (c == '\0' && *s == '\0')
-		return ((char *)s);
-	return (NULL);
+	return ((r < 0) ? -1 : 0);
+}
+
+int
+	delete_list(t_str **list)
+{
+	t_str	*tmp;
+
+	while (*list)
+	{
+		tmp = (*list)->next;
+		free((*list)->content);
+		free(*list);
+		(*list) = tmp;
+	}
+	*list = NULL;
+	return (0);
 }

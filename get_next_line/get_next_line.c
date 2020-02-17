@@ -1,83 +1,135 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fgata-va <fgata-va@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/04 18:04:00 by fgata-va          #+#    #+#             */
-/*   Updated: 2020/01/14 19:26:48 by fgata-va         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
-char				*ft_clean_line(char *save, char **line, int r)
+int
+	read_file_until_nl(t_str **str, int fd)
 {
-	unsigned int	i;
-	char			*tmp;
+	char	*buffer;
+	int		r;
 
-	i = 0;
-	while (save[i])
-	{
-		if (save[i] == '\n')
+	if (!(buffer = (char *)malloc(sizeof(*buffer) * (BUFFER_SIZE + 1))))
+		return (-1);
+	while ((r = read_file(str, buffer, fd)) > 0)
+		if (find_nl(NULL, buffer))
 			break ;
-		i++;
-	}
-	if (i < ft_strlen(save))
-	{
-		*line = ft_substr(save, 0, i);
-		tmp = ft_substr(save, i + 1, ft_strlen(save));
-		free(save);
-		save = ft_strdup(tmp);
-		free(tmp);
-	}
-	else if (r == 0)
-	{
-		*line = save;
-		save = NULL;
-	}
-	return (save);
-}
-
-char				*ft_save(char *buffer, char *save)
-{
-	char			*tmp;
-
-	if (save)
-	{
-		tmp = ft_strjoin(save, buffer);
-		free(save);
-		save = ft_strdup(tmp);
-		free(tmp);
-	}
-	else
-		save = ft_strdup(buffer);
-	return (save);
-}
-
-int					get_next_line(int fd, char **line)
-{
-	static char		*save[4096];
-	char			buffer[BUFFER_SIZE + 1];
-	int				r;
-
-	while ((r = read(fd, buffer, BUFFER_SIZE)))
-	{
-		if (r == -1)
-			return (-1);
-		buffer[r] = '\0';
-		save[fd] = ft_save(buffer, save[fd]);
-		if (ft_strchr(buffer, '\n'))
-			break ;
-	}
-	if (r <= 0 && !save[fd])
-	{
-		*line = ft_strdup("");
-		return (r);
-	}
-	save[fd] = ft_clean_line(save[fd], line, r);
-	if (r <= 0 && !save[fd])
-		return (r);
+	free(buffer);
+	if (r < 0)
+		return (-2);
 	return (1);
+}
+
+int
+	malloc_next_line(t_str **str, char **line)
+{
+	t_str	*first;
+	int		i;
+	int		j;
+	char	*buffer;
+
+	first = *str;
+	j = 0;
+	while (*str)
+	{
+		i = 0;
+		while ((*str)->content[i] && (*str)->content[i] != '\n' && ++j)
+			i++;
+		if ((*str)->content[i] == '\n')
+			break ;
+		*str = (*str)->next;
+	}
+	*str = first;
+	if (!(buffer = (char *)malloc(sizeof(*buffer) * (j + 1))))
+		return (0);
+	*line = buffer;
+	(*line)[j] = 0;
+	return (1);
+}
+
+int
+	write_next_line(t_str **str, char **line)
+{
+	int		idx[2];
+	int		remaining;
+	t_str	*next;
+
+	idx[1] = 0;
+	remaining = 0;
+	while (*str)
+	{
+		idx[0] = 0;
+		while ((*str)->content[idx[0]] && (*str)->content[idx[0]] != '\n')
+			(*line)[idx[1]++] = (*str)->content[idx[0]++];
+		if ((*str)->content[idx[0]++] == '\n' && (remaining = 1))
+		{
+			idx[1] = 0;
+			while ((*str)->content[idx[0]])
+				(*str)->content[idx[1]++] = (*str)->content[idx[0]++];
+			(*str)->content[idx[1]] = 0;
+			break ;
+		}
+		next = (*str)->next;
+		free((*str)->content);
+		free(*str);
+		*str = next;
+	}
+	return (remaining);
+}
+
+static int
+	free_all(t_file **list, int fd, char *buf)
+{
+	t_file	*first;
+	t_file	*lt[2];
+
+	first = (list) ? *list : NULL;
+	lt[0] = NULL;
+	while (list && *list)
+	{
+		lt[1] = (*list)->next;
+		if (fd < 0 || (*list)->fd == fd)
+		{
+			if (first == (*list))
+				first = lt[1];
+			delete_list(&(*list)->str);
+			free((*list));
+			if (lt[0])
+				lt[0]->next = lt[1];
+		}
+		lt[0] = (*list);
+		(*list) = lt[1];
+	}
+	if (list)
+		*list = first;
+	if (buf)
+		free(buf);
+	return (0);
+}
+
+int
+	get_next_line(int fd, char **line)
+{
+	static t_file	*list = NULL;
+	t_file  		*current;
+	int	    		read_rem;
+	char    		*buffer;
+	int	    		r;
+
+	if (!(current = find_file(&list, fd, &read_rem)))
+		return (free_all(&list, -1, NULL) | -1);
+	if ((buffer = NULL) || (!read_rem && current->str))
+		read_rem = !find_nl(current->str, NULL);
+	if (read_rem && (r = read_file_until_nl(&current->str, fd)) < 0)
+		return (free_all(&list, (r == -1) ? -1 : fd, NULL) | -1);
+	if (!malloc_next_line(&current->str, line))
+		return (free_all(&list, -1, NULL) | -1);
+	if (!(read_rem = write_next_line(&current->str, line)))
+	{
+		if (!(buffer = (char*)malloc(sizeof(*buffer) * (BUFFER_SIZE + 1))))
+			return (free_all(&list, -1, NULL));
+		r = read_file(&current->str, buffer, fd);
+		if (free_all(NULL, -1, buffer) || r < 0)
+			return (free_all(&list, fd, NULL) | -1);
+	}
+	if (r > 0 || read_rem)
+		return (1);
+	return (free_all(&list, fd, NULL));
 }

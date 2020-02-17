@@ -17,9 +17,9 @@ typedef struct	s_str
 
 typedef struct	s_file
 {
-	int			fd;
-	t_str		*str;
-	struct s_fd	*next;
+	int			    fd;
+	t_str		    *str;
+	struct s_file	*next;
 }				t_file;
 
 int				get_next_line(int fd, char **line);
